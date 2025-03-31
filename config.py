@@ -1,1 +1,1 @@
-token = ''
+Token = "Your Telegram Bot Token Here"
