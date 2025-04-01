@@ -46,18 +46,32 @@ def gen_markup_2():
     return markup
 
 def gen_markup_3():
-    """
+
     markup = InlineKeyboardMarkup()
     markup.row_width = 3
-    markup.add(InlineKeyboardButton("🥟 ", callback_data="cb_"),
-            InlineKeyboardButton("🥟 ", callback_data="cb_"),
-            InlineKeyboardButton("🥟 ", callback_data="cb_"))
-    markup.add(InlineKeyboardButton("🥟 ", callback_data="cb_"),
-            InlineKeyboardButton("🥟 ", callback_data="cb_"))
+    markup.add(InlineKeyboardButton("🥟 Баоцзы", callback_data="cb_baozzi"),
+            InlineKeyboardButton("🥟 Кундюмы ", callback_data="cb_koondymy"),
+            InlineKeyboardButton("🥟 Курзе ", callback_data="cb_koorze"))
+    markup.add(InlineKeyboardButton("🥟 Бораки ", callback_data="cb_boraki"),
+            InlineKeyboardButton("🥟 Равиоли", callback_data="cb_ravioli"))
     
     return markup
-"""
-    pass
+
+def gen_markup_4():
+    
+    markup = InlineKeyboardMarkup()
+    markup.row_width = 3
+    markup.add(InlineKeyboardButton("🥟 Подкогыльо", callback_data="cb_podkogylyo"),
+            InlineKeyboardButton("🥟 Чучвара ", callback_data="cb_choochvara"),
+            InlineKeyboardButton("🥟 Дюшбара ", callback_data="cb_dyshbara"))
+    markup.add(InlineKeyboardButton("🥟 Креплах ", callback_data="cb_kreplah"),
+            InlineKeyboardButton("🥟 Манду", callback_data="cb_mandoo"))
+    
+    return markup
+
+
+
+
 @bot.message_handler(commands=['start'])
 def start(message):
     bot.reply_to(message, text_start)
@@ -77,7 +91,9 @@ def callback_query(call):
     elif call.data == "2":
         second(call.message)
     elif call.data == "3":
-        pass
+        third(call.message)
+    elif call.data == "4":
+        fourd(call.message)
         
         
 
@@ -91,7 +107,7 @@ def submenu_callback_query(call):
     elif call.data == "cb_Hinkali":
         bot.send_photo(call.message.chat.id, open('img/Hinkali.jpg', 'rb'), text_hinkali)
     elif call.data == "cb_Manti":
-        bot.send_photo(call.message.chat.id, open('img/Manti.jpg', 'rb'), text_manti)
+        bot.send_photo(call.message.chat.id, open('img/Manti.jpg', 'rb'), text_mantu)
     elif call.data == "cb_Buuz":
         bot.send_photo(call.message.chat.id, open('img/Buzz.jpg', 'rb'), text_buuz)
 
@@ -107,6 +123,34 @@ def submenu_callback_query(call):
         bot.send_photo(call.message.chat.id, open('img/momo.jpg', 'rb'), text_momo)
     elif call.data == "cb_votons":
         bot.send_photo(call.message.chat.id, open('img/votons.jpg', 'rb'), text_votons)
+
+@bot.callback_query_handler(func=lambda call: call.data in ["cb_baozzi", "cb_koondymy", "cb_koorze", "cb_boraki", "cb_ravioli"])
+def submenu_callback_query(call):
+    if call.data == "cb_baozzi":
+        bot.send_photo(call.message.chat.id, open('img/baozzi.jpg', 'rb'), text_baozzi)
+    elif call.data == "cb_koondymy":
+        bot.send_photo(call.message.chat.id, open('img/koondymy.jpg', 'rb'), text_koondymy)
+    elif call.data == "cb_koorze":
+        bot.send_photo(call.message.chat.id, open('img/koorze.jpg', 'rb'), text_koorze)
+    elif call.data == "cb_boraki":
+        bot.send_photo(call.message.chat.id, open('img/boraki.jpg', 'rb'), text_boraki)
+    elif call.data == "cb_ravioli":
+        bot.send_photo(call.message.chat.id, open('img/ravioli.jpg', 'rb'), text_ravioli)
+
+@bot.callback_query_handler(func=lambda call: call.data in ["cb_podkogylyo", "cb_choochvara", "cb_dyshbara", "cb_kreplah", "cb_mandoo"])
+def submenu_callback_query(call):
+    if call.data == "cb_podkogylyo":
+        bot.send_photo(call.message.chat.id, open("img/podkogylyo.jpg", "rb"), text_podkogylyo)
+    elif call.data == "cb_choochvara":
+        bot.send_photo(call.message.chat.id, open("img/choochvara.jpg", "rb"), text_choochvara)
+    elif call.data == "cb_dyshbara":
+        bot.send_photo(call.message.chat.id, open("img/dyshbara.jpg", "rb"), text_dyshbara )
+    elif call.data == "cb_kreplah":
+        bot.send_photo(call.message.chat.id, open("img/kreplah.jpg", "rb"), text_kreplah)
+    elif call.data == "cb_mandoo":
+        bot.send_photo(call.message.chat.id, open("img/mandoo.jpg", "rb"), text_mandoo)
+        
+
 # First menu action
 def first(message):
     bot.send_message(message.chat.id, "Список Пельмени", reply_markup=gen_markup_1())
@@ -114,5 +158,9 @@ def first(message):
 def second(message):
     bot.send_message(message.chat.id, "Список Пельмени", reply_markup=gen_markup_2())
 
+def third(message):
+    bot.send_message(message.chat.id, "Список Пельмени", reply_markup=gen_markup_3())
+def fourd(message):
+    bot.send_message(message.chat.id, "Список Пельмени", reply_markup=gen_markup_4())
 bot.infinity_polling()
 
